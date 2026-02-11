@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title> Pagina Inicial </title>
+    </head>
+    <body style="background-color: rgba(101, 101, 196, 0.267);">
+        <h1>Calculo IMC</h1>
+        <form action="/imc" method="POST">
+            <div  style="width: 200px;">
+                <label> Peso </label>
+                <input type="number"  step="any" name="peso">
+            </div>
+            
+            <div style="width: 200px;">
+                <label> Altura </label>
+                <input type="number"  step="any" name="altura">
+            </div>
+            <label > IMC: {{imchtml}} </label>
+            <br/>
+            <input type="submit" value="calcular">  
+        </form>
+    </body>
+</html>
