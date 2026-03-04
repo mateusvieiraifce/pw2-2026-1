@@ -1,0 +1,26 @@
+{% extends "layout.html"%}
+{% block content %}
+<h1>Cadastro de Produtos</h1>
+
+<form action="post">
+        <div class="content_login">
+        <div class="content_login_interno">
+        <input type="text" name="codigo" placeholder="Digite o Código " class="content_input">
+        
+        </div>
+
+        <div class="content_login_interno">
+        <input type="text" name="descricao" placeholder="Digite a Descrição " class="content_input">
+        
+        </div>
+
+         <div class="content_login_interno">
+        <input type="text" name="preco" placeholder="Digite o preço " class="content_input">
+        
+        </div>
+
+        <input type="submit" value="Enviar" class="button">
+
+        </div>
+    </form>
+{% endblock %}
