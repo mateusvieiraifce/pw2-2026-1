@@ -2,7 +2,8 @@
 {% block content %}
 <h1>Cadastro de Produtos</h1>
 
-<form action="post">
+<form action="{{url_for('salvarProduto')}}" 
+  method="POST">
         <div class="content_login">
         <div class="content_login_interno">
         <input type="text" name="codigo" placeholder="Digite o Código " class="content_input">
@@ -22,5 +23,8 @@
         <input type="submit" value="Enviar" class="button">
 
         </div>
+            {% if msg %}
+        <p style="color: red;">{{ msg }}</p>
+            {% endif %}
     </form>
 {% endblock %}

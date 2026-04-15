@@ -1,11 +1,10 @@
 from flask import Flask, render_template, request
 import math
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.orm import declarative_base, sessionmaker
-from weasyprint import HTML, CSS
 from sqlalchemy.exc import DataError, PendingRollbackError
 
-engine = create_engine("mysql+pymysql://root:root@localhost/pw2")
+engine = create_engine("mysql+pymysql://root:@localhost/pw2")
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
@@ -16,6 +15,14 @@ class Usuario(Base):
     login = Column(String(20), nullable = False)
     senha = Column(String(10), nullable = False)
     nome = Column(String(50), nullable = False)
+
+class Produto(Base):
+    __tablename__ = "produto"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    codigo = Column(String(20), nullable= False)
+    descricao = Column(String(100), nullable=False)
+    preco = Column(Float, nullable=False)
+
 Base.metadata.create_all(engine)
 
 app = Flask(__name__)
@@ -23,6 +30,20 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/produtos/salvar", methods=["POST"])
+def salvarProduto():
+    session = Session()
+    codigo = request.form.get("codigo")
+    descricao = request.form.get("descricao")
+    preco = request.form.get("preco")
+    prd = Produto()
+    prd.codigo = codigo
+    prd.descricao = descricao
+    prd.preco = float(preco)
+    session.add(prd)
+    session.commit()
+    return render_template("cadproduto.html",
+     msg="Salvo com sucesso!")
 
 @app.route("/listprodutos")
 def listprodutos():
